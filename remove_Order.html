@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5; /* Light grey background */
+        }
+
+        header {
+            background-color: #28a745; /* Green header */
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #28a745; /* Green heading */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff; /* White background for table */
+            border-radius: 5px;
+            overflow: hidden; /* Hide overflow content */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #28a745; /* Green header for table */
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Alternate row color - light grey */
+        }
+
+        button {
+            background-color: #dc3545; /* Red button */
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Remove Order</h1>
+    </header>
+	<nav>
+         <ul>
+            <li><a href="add_Order.html">Place Order</a></li>
+            <li><a href="search_Order.html">My Order</a></li>
+            <li><a href="remove_Order.html">Food Order</a></li>
+          </ul>
+    </nav>
+    <section>
+        <h2>Order List</h2>
+        <table id="orderTable">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Food Description</th>
+                    <th>Quantity</th>
+                    <th>User Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="orderTableBody">
+                <!-- Order rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </section>
+
+    <script>
+        // Sample order records
+        var orders = [
+            { id: 4, foodDescription: 'Biryani', quantity: 2, userName: 'Ayesha' },
+{ id: 5, foodDescription: 'Chicken Karahi', quantity: 1, userName: 'Ahmed' },
+{ id: 6, foodDescription: 'Samosa', quantity: 3, userName: 'Fatima' },
+{ id: 7, foodDescription: 'Nihari', quantity: 2, userName: 'Zubair' },
+{ id: 8, foodDescription: 'Seekh Kebab', quantity: 4, userName: 'Sana' },
+{ id: 9, foodDescription: 'Haleem', quantity: 1, userName: 'Khalid' },
+{ id: 10, foodDescription: 'Chapli Kebab', quantity: 2, userName: 'Nadia' },
+{ id: 11, foodDescription: 'Aloo Tikki', quantity: 3, userName: 'Arif' },
+{ id: 12, foodDescription: 'Palak Paneer', quantity: 1, userName: 'Farah' },
+{ id: 13, foodDescription: 'Daal Chawal', quantity: 2, userName: 'Imran' }
+            // Add more order records here...
+        ];
+
+        // Function to display orders in the table
+        function displayOrders() {
+            var tableBody = document.getElementById('orderTableBody');
+            tableBody.innerHTML = '';
+
+            orders.forEach(function(order) {
+                var newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${order.id}</td>
+                    <td>${order.foodDescription}</td>
+                    <td>${order.quantity}</td>
+                    <td>${order.userName}</td>
+                    <td><button onclick="removeOrder(${order.id})">Remove</button></td>
+                `;
+                tableBody.appendChild(newRow);
+            });
+        }
+
+        // Function to remove an order
+        function removeOrder(orderId) {
+            var index = orders.findIndex(function(order) {
+                return order.id === orderId;
+            });
+
+            if (index !== -1) {
+                orders.splice(index, 1);
+                displayOrders();
+                alert('Order removed successfully!');
+            } else {
+                alert('Order not found!');
+            }
+        }
+
+        // Display initial order records on page load
+        displayOrders();
+    </script>
+</body>
+</html>
